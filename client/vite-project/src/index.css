@@ -1,0 +1,43 @@
+/* Définir les variables de couleurs */
+:root {
+	--primary-color: #ff6f61; /* Couleur principale */
+	--secondary-color: #4caf50; /* Couleur secondaire */
+	--background-color: #f4f4f9; /* Fond clair */
+	--card-bg-color: #ffffff; /* Fond des cartes */
+	--card-border-color: #ccc; /* Bordure des cartes */
+	--text-color: #333333; /* Texte principal */
+	--text-light: #666666; /* Texte secondaire */
+	--button-bg: #ff9800; /* Boutons */
+	--button-text: #ffffff; /* Texte des boutons */
+}
+
+/* Quelques styles globaux */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: "Arial", sans-serif;
+}
+
+body {
+	background-color: var(--background-color);
+	color: var(--text-color);
+}
+
+/* Exemple de couleur sur les cartes */
+.card {
+	background-color: var(--card-bg-color);
+	border: 1px solid var(--card-border-color);
+	border-radius: 8px;
+	padding: 20px;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+button {
+	background-color: var(--button-bg);
+	color: var(--button-text);
+	padding: 10px 20px;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
