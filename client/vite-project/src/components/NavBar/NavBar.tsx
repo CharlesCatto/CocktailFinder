@@ -15,18 +15,15 @@ function NavBar() {
 				<h1>Card App 🃏</h1>
 			</div>
 
-			{/* Menu burger pour mobile */}
 			<div className={styles.menuIcon} onClick={toggleMenu}>
 				<span className={`${styles.bar} ${isOpen ? styles.open : ""}`} />
 				<span className={`${styles.bar} ${isOpen ? styles.open : ""}`} />
 				<span className={`${styles.bar} ${isOpen ? styles.open : ""}`} />
 			</div>
 
-			{/* Menu traditionnel sur grand écran */}
 			<div className={`${styles.menu} ${isOpen ? styles.openMenu : ""}`}>
 				<NavLink to="/">Accueil</NavLink>
 				<NavLink to="/about">À propos</NavLink>
-				{/* Tu peux ajouter d'autres liens ici */}
 			</div>
 		</nav>
 	);

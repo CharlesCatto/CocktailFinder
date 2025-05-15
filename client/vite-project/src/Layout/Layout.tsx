@@ -6,14 +6,14 @@ function Layout() {
 	return (
 		<div className={styles.container}>
 			<header className={styles.header}>
-				<h1>Card App 🃏</h1>
+				<h1>Cocktail 🃏</h1>
 				<NavBar /> {/* Remplace le nav simple par ta NavBar */}
 			</header>
 			<main className={styles.main}>
 				<Outlet />
 			</main>
 			<footer className={styles.footer}>
-				<p>© 2025 - Card App</p>
+				<p>© 2025 - Cocktail</p>
 			</footer>
 		</div>
 	);

@@ -1,12 +1,15 @@
 import CardList from "../components/CardList/CardList";
 import AddCardForm from "../components/AddCardForm/AddCardForm";
+import { CocktailProvider } from "../contexts/CocktailContext";
 
 function App() {
 	return (
 		<div>
-			<h1>Ma Super Card App</h1>
-			<AddCardForm />
-			<CardList />
+			<CocktailProvider>
+				<h1>Ma Super Card App</h1>
+				<AddCardForm />
+				<CardList />
+			</CocktailProvider>
 		</div>
 	);
 }
