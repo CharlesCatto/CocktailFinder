@@ -1,3 +1,9 @@
+@font-face {
+	font-family: "RageItalic";
+	src: url("/src/assets/font/RAGE_1.TTF") format("truetype");
+	font-display: swap;
+}
+
 /* === Variables couleurs néon années 80 === */
 :root {
 	--neon-pink: #ff00c8;

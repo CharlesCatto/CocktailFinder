@@ -11,9 +11,7 @@ function NavBar() {
 
 	return (
 		<nav className={styles.navbar}>
-			<div className={styles.logo}>
-				<h1>Card App 🃏</h1>
-			</div>
+			<h1 className={styles.title}>Cocktail</h1>
 
 			<div className={styles.menuIcon} onClick={toggleMenu}>
 				<span className={`${styles.bar} ${isOpen ? styles.open : ""}`} />
