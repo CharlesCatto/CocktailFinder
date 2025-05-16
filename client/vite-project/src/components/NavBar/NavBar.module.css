@@ -4,6 +4,7 @@
 	font-display: swap;
 }
 
+/* Base Styles */
 .navbar {
 	display: flex;
 	align-items: center;
@@ -22,15 +23,150 @@
 	text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7, 0 0 20px #ff6ec7, 0 0 40px
 		#ff00ff;
 	margin-bottom: 2rem;
+	animation: neonFlicker 3s infinite;
 }
 
-.logo h1 {
-	font-size: 1.2rem;
-	color: var(--neon-pink);
-	text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-purple);
+/* Neon Icon Styles */
+.iconContainer {
+	position: absolute;
+	left: 1rem;
+	top: 1rem;
+	width: 40px;
+	height: 40px;
+	z-index: 10;
 }
 
-/* Menu burger */
+.neonIconContainer {
+	width: 100%;
+	height: 100%;
+	animation: flicker 7s linear infinite;
+}
+
+.neonIconContainer svg {
+	width: 100%;
+	height: 100%;
+}
+
+/* Flicker Animation from CodePen */
+@keyframes flicker {
+	from {
+		opacity: 1;
+	}
+	4% {
+		opacity: 0.9;
+	}
+	6% {
+		opacity: 0.85;
+	}
+	8% {
+		opacity: 0.95;
+	}
+	10% {
+		opacity: 0.9;
+	}
+	11% {
+		opacity: 0.922;
+	}
+	12% {
+		opacity: 0.9;
+	}
+	14% {
+		opacity: 0.95;
+	}
+	16% {
+		opacity: 0.98;
+	}
+	17% {
+		opacity: 0.9;
+	}
+	19% {
+		opacity: 0.93;
+	}
+	20% {
+		opacity: 0.99;
+	}
+	24% {
+		opacity: 1;
+	}
+	26% {
+		opacity: 0.94;
+	}
+	28% {
+		opacity: 0.98;
+	}
+	37% {
+		opacity: 0.93;
+	}
+	38% {
+		opacity: 0.5;
+	}
+	39% {
+		opacity: 0.96;
+	}
+	42% {
+		opacity: 1;
+	}
+	44% {
+		opacity: 0.97;
+	}
+	46% {
+		opacity: 0.94;
+	}
+	56% {
+		opacity: 0.9;
+	}
+	58% {
+		opacity: 0.9;
+	}
+	60% {
+		opacity: 0.99;
+	}
+	68% {
+		opacity: 1;
+	}
+	70% {
+		opacity: 0.9;
+	}
+	72% {
+		opacity: 0.95;
+	}
+	93% {
+		opacity: 0.93;
+	}
+	95% {
+		opacity: 0.95;
+	}
+	97% {
+		opacity: 0.93;
+	}
+	to {
+		opacity: 1;
+	}
+}
+
+@keyframes neonFlicker {
+	0%,
+	19%,
+	21%,
+	23%,
+	25%,
+	54%,
+	56%,
+	100% {
+		text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7, 0 0 20px #ff6ec7, 0 0 40px
+			#ff00ff;
+		opacity: 1;
+	}
+	20%,
+	22%,
+	24%,
+	55% {
+		text-shadow: none;
+		opacity: 0.7;
+	}
+}
+
+/* Rest of your existing styles... */
 .menuIcon {
 	position: absolute;
 	right: 1.5rem;
@@ -43,8 +179,6 @@
 	z-index: 20;
 	height: 30px;
 	width: 30px;
-	/* Temp pour debug */
-	background-color: rgba(255, 255, 255, 0.1);
 }
 
 .bar {
@@ -53,53 +187,54 @@
 	background-color: #00eaff;
 	transition: all 0.3s ease;
 	box-shadow: 0 0 5px #00eaff, 0 0 10px #00eaff, 0 0 20px #00eaff;
-	animation: none;
 	border-radius: 3px;
 	position: relative;
 }
-.bar::after {
-	content: "";
-	position: absolute;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	border-radius: 3px;
-	background: rgba(0, 234, 255, 0.3);
-	box-shadow: inset 0 0 10px #00eaff;
-}
 
-.open.bar:nth-child(1) {
-	transform: rotate(45deg) translate(5px, 5px);
-}
+/* ... (conservez le reste de vos styles existants) ... */
 
-.open.bar:nth-child(2) {
-	opacity: 0;
-}
+/* Desktop Styles */
+@media (min-width: 768px) {
+	.menuIcon {
+		display: none;
+	}
 
-.open.bar:nth-child(3) {
-	transform: rotate(-45deg) translate(5px, -5px);
-}
+	.menu {
+		display: flex !important;
+		flex-direction: row;
+		position: static;
+		width: auto;
+		background: none;
+		box-shadow: none;
+		gap: 1rem;
+	}
 
-/* Menu mobile */
+	.menu a {
+		margin: 0 1rem;
+	}
+}
 .menu {
 	position: absolute;
 	right: 1.5rem;
-	top: 1.5rem;
+	top: 4.5rem; /* Ajustez selon la hauteur de votre navbar */
 	display: none;
 	flex-direction: column;
 	background-color: #111;
-	width: 100%;
+	width: auto;
+	min-width: 150px;
 	text-align: right;
 	padding: 1rem;
 	box-shadow: 0 0 10px var(--neon-purple);
 	z-index: 10;
+	border-radius: 4px;
 }
 
-.openMenu {
+/* Menu visible quand isOpen est true */
+.menu.openMenu {
 	display: flex;
 }
 
+/* Styles pour les liens du menu */
 .menu a {
 	color: var(--neon-purple);
 	text-decoration: none;
@@ -107,6 +242,7 @@
 	font-weight: bold;
 	text-shadow: 0 0 5px var(--neon-purple);
 	transition: color 0.2s ease;
+	padding: 0.5rem 1rem;
 }
 
 .menu a:hover,
@@ -129,71 +265,10 @@
 		background: none;
 		box-shadow: none;
 		gap: 1rem;
+		padding: 0;
 	}
 
 	.menu a {
 		margin: 0 1rem;
-	}
-}
-@keyframes neonFlicker {
-	0%,
-	19%,
-	21%,
-	23%,
-	25%,
-	54%,
-	56%,
-	100% {
-		text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7, 0 0 20px #ff6ec7, 0 0 40px
-			#ff00ff, 0 0 60px #ff00ff, 0 0 80px #ff00ff;
-		opacity: 1;
-	}
-	20%,
-	22%,
-	24%,
-	55% {
-		text-shadow: none;
-		opacity: 0.7;
-	}
-}
-
-@keyframes neonPulse {
-	0%,
-	100% {
-		transform: scale(1);
-	}
-	50% {
-		transform: scale(1.01);
-	}
-}
-.title {
-	font-family: "RageItalic", cursive;
-	font-size: 4rem;
-	color: #ff6ec7;
-	text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7, 0 0 20px #ff6ec7, 0 0 40px
-		#ff00ff, 0 0 60px #ff00ff, 0 0 80px #ff00ff;
-	animation: neonFlicker 3s infinite, neonPulse 1.5s infinite ease-in-out;
-	transition: all 0.3s ease;
-}
-
-@keyframes neonFlickerBlue {
-	0%,
-	19%,
-	21%,
-	23%,
-	25%,
-	54%,
-	56%,
-	100% {
-		box-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue), 0 0 20px
-			var(--neon-blue), 0 0 40px var(--neon-blue);
-		opacity: 1;
-	}
-	20%,
-	22%,
-	24%,
-	55% {
-		box-shadow: none;
-		opacity: 0.7;
 	}
 }

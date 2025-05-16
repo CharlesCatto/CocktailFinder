@@ -1,50 +1,52 @@
 // src/components/CocktailSearch/CocktailSearch.tsx
 import { useState } from "react";
 import { useCocktailContext } from "../../contexts/CocktailContext";
-import type { Cocktail } from "../../types/cocktail";
+import styles from "./CocktailSearch.module.css";
 
-function CocktailSearch() {
+interface CocktailSearchProps {
+	setIsLoading: (loading: boolean) => void;
+}
+
+function CocktailSearch({ setIsLoading }: CocktailSearchProps) {
 	const [query, setQuery] = useState("");
-	const { cocktails, setCocktails } = useCocktailContext();
+	const { setCocktails } = useCocktailContext();
 
 	const handleSearch = () => {
+		if (!query.trim()) return;
+
+		setIsLoading(true);
 		fetch(`https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`)
 			.then((res) => res.json())
 			.then((data) => {
 				setCocktails(data.drinks || []);
 			})
-			.catch((err) => console.error("Erreur API :", err));
+			.catch((err) => {
+				console.error("Erreur API :", err);
+				setCocktails([]);
+			})
+			.finally(() => setIsLoading(false));
 	};
 
 	return (
-		<div>
-			<h2>Recherche de cocktails 🍸</h2>
-			<input
-				type="text"
-				value={query}
-				onChange={(e) => setQuery(e.target.value)}
-				onKeyDown={(e) => {
-					if (e.key === "Enter") handleSearch();
-				}}
-				placeholder="Tapez un nom de cocktail"
-			/>
-
-			<button type="button" onClick={handleSearch}>
-				Rechercher
-			</button>
-
-			<div>
-				{cocktails.map((drink: Cocktail) => (
-					<div key={drink.idDrink}>
-						<h3>{drink.strDrink}</h3>
-						<img src={drink.strDrinkThumb} alt={drink.strDrink} />
-					</div>
-				))}
+		<div className={styles.container}>
+			<div className={styles.searchBox}>
+				<input
+					type="text"
+					value={query}
+					onChange={(e) => setQuery(e.target.value)}
+					onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+					placeholder="Rechercher un cocktail..."
+					className={styles.input}
+				/>
+				<button
+					type="button"
+					onClick={handleSearch}
+					className={styles.button}
+					disabled={!query.trim()}
+				>
+					Rechercher
+				</button>
 			</div>
-
-			{cocktails.length === 0 && query && (
-				<p>Aucun cocktail trouvé pour "{query}".</p>
-			)}
 		</div>
 	);
 }

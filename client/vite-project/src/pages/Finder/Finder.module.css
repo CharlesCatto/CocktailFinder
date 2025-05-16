@@ -1,0 +1,73 @@
+/* src/pages/Finder/Finder.module.css */
+.container {
+	padding: 2rem;
+	max-width: 1200px;
+	margin: 0 auto;
+}
+
+.title {
+	font-family: "RageItalic", cursive;
+	font-size: 3rem;
+	color: var(--neon-pink);
+	text-align: center;
+	margin-bottom: 2rem;
+	text-shadow: 0 0 10px var(--neon-pink);
+}
+
+.searchSection {
+	background-color: var(--card-bg-color);
+	padding: 2rem;
+	border-radius: 10px;
+	margin-bottom: 2rem;
+	box-shadow: 0 0 15px var(--neon-purple);
+}
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+	gap: 2rem;
+}
+
+.card {
+	background: var(--card-bg-color);
+	border-radius: 10px;
+	overflow: hidden;
+	transition: transform 0.3s ease;
+	box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 0 20px var(--neon-blue);
+}
+
+.image {
+	width: 100%;
+	height: 200px;
+	object-fit: cover;
+}
+
+.name {
+	color: var(--neon-green);
+	padding: 1rem;
+	font-size: 1.2rem;
+	text-align: center;
+}
+
+.category {
+	color: var(--text-light);
+	padding: 0 1rem 1rem;
+	text-align: center;
+}
+
+.empty {
+	text-align: center;
+	color: var(--text-light);
+	font-size: 1.2rem;
+}
+
+.loader {
+	text-align: center;
+	color: var(--neon-blue);
+	margin: 2rem 0;
+}
