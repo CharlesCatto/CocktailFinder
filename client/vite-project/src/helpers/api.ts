@@ -1,17 +1,23 @@
-import axios from "axios";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
-const api = axios.create({
-	baseURL: import.meta.env.VITE_API_URL || "http://localhost:3000/api",
-});
+export default {
+	async post<T>(endpoint: string, data: object): Promise<T> {
+		const response = await fetch(`${API_URL}/api${endpoint}`, {
+			method: "POST",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(data),
+		});
 
-// Intercepteur pour ajouter le token JWT
-api.interceptors.request.use((config) => {
-	const user = localStorage.getItem("user");
-	if (user) {
-		const parsedUser = JSON.parse(user);
-		config.headers.Authorization = `Bearer ${parsedUser.token}`;
-	}
-	return config;
-});
+		const responseData = await response.json();
 
-export default api;
+		if (!response.ok) {
+			throw new Error(
+				responseData.error || responseData.message || "Erreur serveur",
+			);
+		}
+
+		return responseData;
+	},
+};

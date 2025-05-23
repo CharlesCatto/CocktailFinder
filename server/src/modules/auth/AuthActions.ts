@@ -6,15 +6,32 @@ const register: RequestHandler = async (req, res, next) => {
 	try {
 		const { email, password, username, firstname, lastname } = req.body;
 
-		if (!email || !password) {
-			res.status(400).json({ error: "Email and password required" });
+		if (!email || !password || !username) {
+			res
+				.status(400)
+				.json({ error: "Email, password and username are required" });
+			return;
+		}
+
+		const [existingUser, existingUsername] = await Promise.all([
+			authRepository.findByEmail(email),
+			authRepository.findByUsername(username),
+		]);
+
+		if (existingUser) {
+			res.status(409).json({ error: "Email already exists" });
+			return;
+		}
+
+		if (existingUsername) {
+			res.status(409).json({ error: "Username already exists" });
 			return;
 		}
 
 		const userId = await authRepository.create({
 			email,
 			password,
-			username: username || "", // Valeur par défaut si undefined
+			username,
 			firstname: firstname || "",
 			lastname: lastname || "",
 		});
@@ -22,7 +39,7 @@ const register: RequestHandler = async (req, res, next) => {
 		res.status(201).json({
 			id: userId,
 			email,
-			username: username || null,
+			username,
 			firstname: firstname || null,
 			lastname: lastname || null,
 		});
@@ -41,20 +58,13 @@ const login: RequestHandler = async (req, res, next) => {
 			return;
 		}
 
-		// Type assertion si nécessaire
-		const userWithProfile = user as User & {
-			firstname?: string;
-			lastname?: string;
-			is_admin?: boolean;
-		};
-
 		res.json({
 			id: user.id,
 			email: user.email,
 			username: user.username || null,
-			firstname: userWithProfile.firstname || null,
-			lastname: userWithProfile.lastname || null,
-			is_admin: userWithProfile.is_admin || false,
+			firstname: user.firstname || null,
+			lastname: user.lastname || null,
+			is_admin: user.is_admin || false,
 		});
 	} catch (error) {
 		next(error);

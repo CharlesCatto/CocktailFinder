@@ -6,25 +6,15 @@ import { successToast, errorToast } from "../../services/toast";
 import styles from "./Account.module.css";
 
 import eyeClosed from "../../assets/Icons/eye-slash.svg";
-import eye from "../../assets//Icons/eye.svg";
+import eye from "../../assets/Icons/eye.svg";
 
-interface LoginResponse {
-	token: string;
-	user: {
-		id: number;
-		username: string;
-		email: string;
-		is_admin: boolean;
-	};
-}
-
-interface RegisterResponse {
-	message: string;
-	user: {
-		id: number;
-		username: string;
-		email: string;
-	};
+interface UserData {
+	id: number;
+	username: string;
+	email: string;
+	is_admin: boolean;
+	firstname?: string;
+	lastname?: string;
 }
 
 export default function Account() {
@@ -52,12 +42,9 @@ export default function Account() {
 
 	const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = e.target;
-
-		if (isLogin) {
-			setLogin((prev) => ({ ...prev, [name]: value }));
-		} else {
-			setRegister((prev) => ({ ...prev, [name]: value }));
-		}
+		isLogin
+			? setLogin((prev) => ({ ...prev, [name]: value }))
+			: setRegister((prev) => ({ ...prev, [name]: value }));
 	};
 
 	const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -66,18 +53,23 @@ export default function Account() {
 
 		try {
 			if (isLogin) {
-				const response = await api.post<LoginResponse>("/api/login", login);
-				handleLogin(response.data.user);
-				successToast(`Bienvenue, ${response.data.user.username} !`);
-				setTimeout(() => navigate("/"), 2000);
+				// Gestion connexion
+				const userData = await api.post<UserData>("/login", {
+					email: login.email,
+					password: login.password,
+				});
+				handleLogin(userData);
+				successToast(`Bienvenue, ${userData.username} !`);
+				setTimeout(() => navigate("/"), 2000); // Redirection après connexion
 			} else {
+				// Gestion inscription
 				if (register.password !== register.confirmPassword) {
 					errorToast("Les mots de passe ne correspondent pas.");
 					setErrorMessage("Les mots de passe ne correspondent pas.");
 					return;
 				}
 
-				await api.post<RegisterResponse>("/api/register", {
+				await api.post("/register", {
 					username: register.username,
 					email: register.email,
 					password: register.password,
@@ -85,19 +77,22 @@ export default function Account() {
 					lastname: register.lastname,
 				});
 
-				const loginResponse = await api.post<LoginResponse>("/api/login", {
+				const userData = await api.post<UserData>("/login", {
 					email: register.email,
 					password: register.password,
 				});
 
-				handleLogin(loginResponse.data.user);
-				setWelcomeMessage(`Bienvenue ${loginResponse.data.user.username} !`);
-				successToast("Compte créé avec succès !");
-				setTimeout(() => navigate("/account"), 2000);
+				handleLogin(userData);
+				successToast(
+					`Bienvenue ${userData.username}, compte créé avec succès !`,
+				);
+				setTimeout(() => navigate("/"), 2000); // Redirection après inscription
 			}
 		} catch (error) {
-			setErrorMessage("Erreur d'authentification");
-			errorToast("Email ou mot de passe incorrect");
+			const message =
+				error instanceof Error ? error.message : "Erreur d'authentification";
+			setErrorMessage(message);
+			errorToast(message);
 			console.error("Erreur:", error);
 		}
 	};

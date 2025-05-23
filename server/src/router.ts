@@ -12,16 +12,7 @@ router.post("/api/login", AuthActions.login);
 /* ************************************************************************* */
 // Middleware pour les erreurs (optionnel mais recommandé)
 /* ************************************************************************* */
-router.use(
-	(
-		err: Error,
-		req: express.Request,
-		res: express.Response,
-		next: express.NextFunction,
-	) => {
-		console.error(err);
-		res.status(500).json({ error: "Internal server error" });
-	},
-);
 
 export default router;
+
+// import cocktailRouter from "./routes/api/cocktailRoutes"; router.use("/cocktails", cocktailRouter); router.use("/favoris", favorisRouter);
