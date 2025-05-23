@@ -1,13 +1,35 @@
 import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import styles from "./NavBar.module.css";
 
 function NavBar() {
 	const [isOpen, setIsOpen] = useState(false);
+	const menuRef = useRef<HTMLDivElement>(null);
+	const menuIconRef = useRef<HTMLDivElement>(null);
 
 	const toggleMenu = () => {
 		setIsOpen(!isOpen);
 	};
+
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			// Si le menu est ouvert et qu'on clique à l'extérieur du menu et de l'icône
+			if (
+				isOpen &&
+				menuRef.current &&
+				!menuRef.current.contains(event.target as Node) &&
+				menuIconRef.current &&
+				!menuIconRef.current.contains(event.target as Node)
+			) {
+				setIsOpen(false);
+			}
+		};
+
+		document.addEventListener("mousedown", handleClickOutside);
+		return () => {
+			document.removeEventListener("mousedown", handleClickOutside);
+		};
+	}, [isOpen]);
 
 	const MartiniIcon = () => (
 		<div className={styles.neonIconContainer}>
@@ -41,25 +63,83 @@ function NavBar() {
 	);
 
 	return (
-		<nav className={styles.navbar}>
-			<h1 className={styles.title}>Cocktail</h1>
-
+		<div className={styles.navbar}>
 			<div className={styles.iconContainer}>
 				<MartiniIcon />
 			</div>
 
-			<div className={styles.menuIcon} onClick={toggleMenu}>
+			<div className={styles.titleContainer}>
+				<h1 className={styles.title}>Cocktail</h1>
+			</div>
+
+			<div className={styles.menuIcon} onClick={toggleMenu} ref={menuIconRef}>
 				<span className={`${styles.bar} ${isOpen ? styles.open : ""}`} />
 				<span className={`${styles.bar} ${isOpen ? styles.open : ""}`} />
 				<span className={`${styles.bar} ${isOpen ? styles.open : ""}`} />
 			</div>
 
-			<div className={`${styles.menu} ${isOpen ? styles.openMenu : ""}`}>
-				<NavLink to="/">Accueil</NavLink>
-				<NavLink to="/about">À propos</NavLink>
-				<NavLink to="/account">Inscription</NavLink>
+			<div
+				className={`${styles.menu} ${isOpen ? styles.openMenu : ""}`}
+				ref={menuRef}
+			>
+				<NavLink
+					to="/"
+					end
+					className={({ isActive }) => (isActive ? styles.active : "")}
+				>
+					Accueil
+				</NavLink>
+				<NavLink
+					to="/about"
+					className={({ isActive }) => (isActive ? styles.active : "")}
+				>
+					À propos
+				</NavLink>
+				<NavLink
+					to="/account"
+					className={({ isActive }) => (isActive ? styles.active : "")}
+				>
+					Inscription
+				</NavLink>
+				<NavLink
+					to="/cocktails"
+					className={({ isActive }) => (isActive ? styles.active : "")}
+				>
+					Explorer les cocktails
+				</NavLink>
 			</div>
-		</nav>
+		</div>
+		// <nav className={styles.navbar}>
+		// 	<h1 className={styles.title}>Cocktail</h1>
+
+		// 	<div className={styles.iconContainer}>
+		// 		<MartiniIcon />
+		// 	</div>
+
+		// 	<div className={styles.menuIcon} onClick={toggleMenu} ref={menuIconRef}>
+		// 		<span className={`${styles.bar} ${isOpen ? styles.open : ""}`} />
+		// 		<span className={`${styles.bar} ${isOpen ? styles.open : ""}`} />
+		// 		<span className={`${styles.bar} ${isOpen ? styles.open : ""}`} />
+		// 	</div>
+
+		// 	<div
+		// 		className={`${styles.menu} ${isOpen ? styles.openMenu : ""}`}
+		// 		ref={menuRef}
+		// 	>
+		// 		<NavLink to="/" onClick={() => setIsOpen(false)}>
+		// 			Accueil
+		// 		</NavLink>
+		// 		<NavLink to="/about" onClick={() => setIsOpen(false)}>
+		// 			À propos
+		// 		</NavLink>
+		// 		<NavLink to="/account" onClick={() => setIsOpen(false)}>
+		// 			Inscription
+		// 		</NavLink>
+		// 		<NavLink to="/cocktails" onClick={() => setIsOpen(false)}>
+		// 			Explorer les cocktails
+		// 		</NavLink>
+		// 	</div>
+		// </nav>
 	);
 }
 

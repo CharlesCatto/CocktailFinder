@@ -4,33 +4,50 @@
 	font-display: swap;
 }
 
+/* Variables */
+:root {
+	--neon-pink: #ff6ec7;
+	--neon-blue: #00eaff;
+	--neon-purple: #ff00ff;
+	--glass-bg: rgba(10, 10, 15, 0.85);
+	--text-primary: #f0f0f0;
+}
+
 /* Base Styles */
 .navbar {
 	display: flex;
 	align-items: center;
-	justify-content: center;
+	justify-content: space-between; /* Changement important */
 	position: relative;
-	padding: 1rem 1.5rem;
+	padding: 1rem 2rem;
 	background-color: #000;
-	color: var(--neon-pink);
 	box-shadow: 0 0 10px var(--neon-blue);
+}
+
+.title-container {
+	flex: 1;
+	display: flex;
+	justify-content: center;
+	position: absolute;
+	left: 0;
+	right: 0;
+	pointer-events: none;
+	z-index: 1;
 }
 
 .title {
 	font-family: "RageItalic", cursive;
-	font-size: 4rem;
-	color: #ff6ec7;
-	text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7, 0 0 20px #ff6ec7, 0 0 40px
-		#ff00ff;
-	margin-bottom: 2rem;
+	font-size: 3rem;
+	color: var(--neon-pink);
+	text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 20px
+		var(--neon-pink), 0 0 40px var(--neon-purple);
 	animation: neonFlicker 3s infinite;
+	margin: 0;
 }
 
 /* Neon Icon Styles */
 .iconContainer {
-	position: absolute;
-	left: 1rem;
-	top: 1rem;
+	position: relative;
 	width: 40px;
 	height: 40px;
 	z-index: 10;
@@ -47,101 +64,129 @@
 	height: 100%;
 }
 
-/* Flicker Animation from CodePen */
+/* Menu Icon (Burger) */
+.menuIcon {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	gap: 5px;
+	z-index: 20;
+	height: 30px;
+	width: 30px;
+	cursor: pointer;
+}
+
+.bar {
+	width: 25px;
+	height: 3px;
+	background-color: var(--neon-blue);
+	transition: all 0.3s ease;
+	box-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue), 0 0 20px
+		var(--neon-blue);
+	border-radius: 3px;
+}
+
+/* Menu Styles */
+.menu {
+	position: absolute;
+	right: 1.5rem;
+	top: 5rem;
+	display: none;
+	flex-direction: column;
+	background: var(--glass-bg);
+	backdrop-filter: blur(12px);
+	-webkit-backdrop-filter: blur(12px);
+	width: auto;
+	min-width: 180px;
+	padding: 0.5rem;
+	border-radius: 12px;
+	border: 1px solid rgba(255, 255, 255, 0.1);
+	box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+	z-index: 15;
+}
+
+.menu.openMenu {
+	display: flex;
+}
+
+.menu a {
+	color: var(--text-primary);
+	text-decoration: none;
+	font-weight: 500;
+	padding: 0.75rem 1.5rem;
+	border-radius: 8px;
+	margin: 0.25rem 0;
+	transition: all 0.3s ease;
+	position: relative;
+}
+
+.menu a:hover {
+	background: rgba(0, 234, 255, 0.1);
+}
+
+.menu a::after {
+	content: "";
+	position: absolute;
+	bottom: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 0;
+	height: 2px;
+	background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+	transition: width 0.3s ease;
+}
+
+.menu a:hover::after,
+.menu a.active::after {
+	width: 80%;
+}
+
+/* Active link style */
+.menu a.active {
+	color: var(--neon-blue);
+	font-weight: 600;
+}
+
+/* Desktop Styles */
+@media (min-width: 768px) {
+	.navbar {
+		padding: 1rem 3rem;
+	}
+
+	.menuIcon {
+		display: none;
+	}
+
+	.menu {
+		position: static;
+		display: flex !important;
+		flex-direction: row;
+		background: none;
+		backdrop-filter: none;
+		border: none;
+		box-shadow: none;
+		padding: 0;
+		min-width: auto;
+	}
+
+	.menu a {
+		margin: 0 0.5rem;
+		padding: 0.5rem 1rem;
+	}
+
+	.menu a::after {
+		bottom: -5px;
+	}
+
+	.menu a.active::after {
+		width: 60%;
+	}
+}
+
+/* Animations */
 @keyframes flicker {
-	from {
-		opacity: 1;
-	}
-	4% {
-		opacity: 0.9;
-	}
-	6% {
-		opacity: 0.85;
-	}
-	8% {
-		opacity: 0.95;
-	}
-	10% {
-		opacity: 0.9;
-	}
-	11% {
-		opacity: 0.922;
-	}
-	12% {
-		opacity: 0.9;
-	}
-	14% {
-		opacity: 0.95;
-	}
-	16% {
-		opacity: 0.98;
-	}
-	17% {
-		opacity: 0.9;
-	}
-	19% {
-		opacity: 0.93;
-	}
-	20% {
-		opacity: 0.99;
-	}
-	24% {
-		opacity: 1;
-	}
-	26% {
-		opacity: 0.94;
-	}
-	28% {
-		opacity: 0.98;
-	}
-	37% {
-		opacity: 0.93;
-	}
-	38% {
-		opacity: 0.5;
-	}
-	39% {
-		opacity: 0.96;
-	}
-	42% {
-		opacity: 1;
-	}
-	44% {
-		opacity: 0.97;
-	}
-	46% {
-		opacity: 0.94;
-	}
-	56% {
-		opacity: 0.9;
-	}
-	58% {
-		opacity: 0.9;
-	}
-	60% {
-		opacity: 0.99;
-	}
-	68% {
-		opacity: 1;
-	}
-	70% {
-		opacity: 0.9;
-	}
-	72% {
-		opacity: 0.95;
-	}
-	93% {
-		opacity: 0.93;
-	}
-	95% {
-		opacity: 0.95;
-	}
-	97% {
-		opacity: 0.93;
-	}
-	to {
-		opacity: 1;
-	}
+	/* ... (conservez votre animation existante) ... */
 }
 
 @keyframes neonFlicker {
@@ -153,8 +198,8 @@
 	54%,
 	56%,
 	100% {
-		text-shadow: 0 0 5px #ff6ec7, 0 0 10px #ff6ec7, 0 0 20px #ff6ec7, 0 0 40px
-			#ff00ff;
+		text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 20px
+			var(--neon-pink), 0 0 40px var(--neon-purple);
 		opacity: 1;
 	}
 	20%,
@@ -163,112 +208,5 @@
 	55% {
 		text-shadow: none;
 		opacity: 0.7;
-	}
-}
-
-/* Rest of your existing styles... */
-.menuIcon {
-	position: absolute;
-	right: 1.5rem;
-	top: 1.5rem;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
-	gap: 5px;
-	z-index: 20;
-	height: 30px;
-	width: 30px;
-}
-
-.bar {
-	width: 25px;
-	height: 3px;
-	background-color: #00eaff;
-	transition: all 0.3s ease;
-	box-shadow: 0 0 5px #00eaff, 0 0 10px #00eaff, 0 0 20px #00eaff;
-	border-radius: 3px;
-	position: relative;
-}
-
-/* ... (conservez le reste de vos styles existants) ... */
-
-/* Desktop Styles */
-@media (min-width: 768px) {
-	.menuIcon {
-		display: none;
-	}
-
-	.menu {
-		display: flex !important;
-		flex-direction: row;
-		position: static;
-		width: auto;
-		background: none;
-		box-shadow: none;
-		gap: 1rem;
-	}
-
-	.menu a {
-		margin: 0 1rem;
-	}
-}
-.menu {
-	position: absolute;
-	right: 1.5rem;
-	top: 4.5rem; /* Ajustez selon la hauteur de votre navbar */
-	display: none;
-	flex-direction: column;
-	background-color: #111;
-	width: auto;
-	min-width: 150px;
-	text-align: right;
-	padding: 1rem;
-	box-shadow: 0 0 10px var(--neon-purple);
-	z-index: 10;
-	border-radius: 4px;
-}
-
-/* Menu visible quand isOpen est true */
-.menu.openMenu {
-	display: flex;
-}
-
-/* Styles pour les liens du menu */
-.menu a {
-	color: var(--neon-purple);
-	text-decoration: none;
-	margin: 0.5rem 0;
-	font-weight: bold;
-	text-shadow: 0 0 5px var(--neon-purple);
-	transition: color 0.2s ease;
-	padding: 0.5rem 1rem;
-}
-
-.menu a:hover,
-.menu a.active {
-	color: var(--neon-pink);
-	text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink);
-}
-
-/* Grand écran */
-@media (min-width: 768px) {
-	.menuIcon {
-		display: none;
-	}
-
-	.menu {
-		display: flex !important;
-		flex-direction: row;
-		position: static;
-		width: auto;
-		background: none;
-		box-shadow: none;
-		gap: 1rem;
-		padding: 0;
-	}
-
-	.menu a {
-		margin: 0 1rem;
 	}
 }
