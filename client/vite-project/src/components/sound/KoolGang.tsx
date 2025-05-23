@@ -24,53 +24,70 @@
 // }
 
 // export default KoolGang;
+
 import { useEffect, useRef, useState } from "react";
 
 function KoolGang() {
 	const audioRef = useRef<HTMLAudioElement>(null);
-	const [userInteracted, setUserInteracted] = useState(false);
+	const [isPlaying, setIsPlaying] = useState(false);
+	const [showButton, setShowButton] = useState(true);
 
-	// Détecter la première interaction utilisateur
+	const togglePlay = async () => {
+		if (!audioRef.current) return;
+
+		try {
+			if (isPlaying) {
+				audioRef.current.pause();
+			} else {
+				await audioRef.current.play();
+				// Cache le bouton après la première interaction réussie
+				setShowButton(false);
+			}
+			setIsPlaying(!isPlaying);
+		} catch (error) {
+			console.error("Erreur de lecture audio:", error);
+			setShowButton(true);
+		}
+	};
+
 	useEffect(() => {
-		const handleInteraction = () => {
-			setUserInteracted(true);
-			// On retire l'écouteur après la première interaction
-			window.removeEventListener("click", handleInteraction);
-			window.removeEventListener("keydown", handleInteraction);
-			window.removeEventListener("touchstart", handleInteraction);
-		};
-
-		// Plusieurs types d'interactions possibles
-		window.addEventListener("click", handleInteraction);
-		window.addEventListener("keydown", handleInteraction);
-		window.addEventListener("touchstart", handleInteraction);
-
-		return () => {
-			window.removeEventListener("click", handleInteraction);
-			window.removeEventListener("keydown", handleInteraction);
-			window.removeEventListener("touchstart", handleInteraction);
-		};
+		// Précharge le volume mais ne lance pas la lecture
+		if (audioRef.current) {
+			audioRef.current.volume = 0.25;
+		}
 	}, []);
 
-	// Lancer la lecture après interaction
-	useEffect(() => {
-		if (userInteracted && audioRef.current) {
-			audioRef.current.volume = 0.25;
-			audioRef.current.play().catch((e) => {
-				console.error("Erreur de lecture audio:", e);
-			});
-		}
-	}, [userInteracted]);
-
 	return (
-		<audio
-			ref={audioRef}
-			src="/audio/audiokool_gang_sample.mp4"
-			loop
-			preload="auto"
-			// Ajout muted pour contourner les restrictions (optionnel)
-			muted={false}
-		/>
+		<>
+			{showButton && (
+				<button
+					type="button"
+					onClick={togglePlay}
+					style={{
+						position: "fixed",
+						bottom: "20px",
+						right: "20px",
+						zIndex: 1000,
+						padding: "10px 15px",
+						backgroundColor: "#ff4757",
+						color: "white",
+						border: "none",
+						borderRadius: "5px",
+						cursor: "pointer",
+					}}
+				>
+					{isPlaying ? "🔊 Son ON" : "🔇 Son OFF"}
+				</button>
+			)}
+
+			<audio
+				ref={audioRef}
+				src="/audio/audiokool_gang_sample.mp4"
+				loop
+				preload="auto"
+				muted={false}
+			/>
+		</>
 	);
 }
 
