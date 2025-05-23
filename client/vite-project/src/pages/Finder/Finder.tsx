@@ -1,12 +1,30 @@
-// src/pages/Finder/Finder.tsx
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useCocktailContext } from "../../contexts/CocktailContext";
 import CocktailSearch from "../../components/CocktailSearch/CocktailSearch";
 import styles from "./Finder.module.css";
+import type { Cocktail } from "../../types/cocktail";
 
 function Finder() {
 	const { cocktails } = useCocktailContext();
 	const [isLoading, setIsLoading] = useState(false);
+	const [selectedCocktail, setSelectedCocktail] = useState<Cocktail | null>(
+		null,
+	);
+
+	const getIngredients = (cocktail: Cocktail) => {
+		const ingredients = [];
+		for (let i = 1; i <= 15; i++) {
+			const ingredient = cocktail[`strIngredient${i}` as keyof Cocktail];
+			const measure = cocktail[`strMeasure${i}` as keyof Cocktail];
+			if (ingredient) {
+				ingredients.push({
+					ingredient,
+					measure: measure || "",
+				});
+			}
+		}
+		return ingredients;
+	};
 
 	return (
 		<div className={styles.container}>
@@ -22,14 +40,23 @@ function Finder() {
 				{cocktails.length > 0 ? (
 					<div className={styles.grid}>
 						{cocktails.map((drink) => (
-							<div key={drink.idDrink} className={styles.card}>
+							<div
+								key={drink.idDrink}
+								className={styles.card}
+								onClick={() => setSelectedCocktail(drink)}
+							>
 								<img
 									src={drink.strDrinkThumb}
 									alt={drink.strDrink}
 									className={styles.image}
 								/>
 								<h3 className={styles.name}>{drink.strDrink}</h3>
-								<p className={styles.category}>{drink.strCategory}</p>
+								{drink.strCategory && (
+									<p className={styles.category}>{drink.strCategory}</p>
+								)}
+								{drink.strAlcoholic && (
+									<p className={styles.alcoholic}>{drink.strAlcoholic}</p>
+								)}
 							</div>
 						))}
 					</div>
@@ -39,6 +66,69 @@ function Finder() {
 					</p>
 				)}
 			</div>
+
+			{/* Modal de détails */}
+			{selectedCocktail && (
+				<div
+					className={styles.modalBackdrop}
+					onClick={() => setSelectedCocktail(null)}
+				>
+					<div
+						className={styles.modalContent}
+						onClick={(e) => e.stopPropagation()}
+					>
+						<button
+							type="button"
+							className={styles.closeButton}
+							onClick={() => setSelectedCocktail(null)}
+						>
+							×
+						</button>
+
+						<div className={styles.modalHeader}>
+							<img
+								src={selectedCocktail.strDrinkThumb}
+								alt={selectedCocktail.strDrink}
+								className={styles.modalImage}
+							/>
+							<div className={styles.modalTitle}>
+								<h2>{selectedCocktail.strDrink}</h2>
+								<div className={styles.tags}>
+									{selectedCocktail.strCategory && (
+										<span className={styles.tag}>
+											{selectedCocktail.strCategory}
+										</span>
+									)}
+									{selectedCocktail.strAlcoholic && (
+										<span className={styles.tag}>
+											{selectedCocktail.strAlcoholic}
+										</span>
+									)}
+									{selectedCocktail.strGlass && (
+										<span className={styles.tag}>
+											{selectedCocktail.strGlass}
+										</span>
+									)}
+								</div>
+							</div>
+						</div>
+
+						<div className={styles.modalBody}>
+							<div className={styles.section}>
+								<h3>Instructions</h3>
+								<p>
+									{selectedCocktail.strInstructions ||
+										"Pas d'instructions disponibles"}
+								</p>
+							</div>
+
+							{selectedCocktail.strInstructionsFR && (
+								<div className={styles.section}></div>
+							)}
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
 }
