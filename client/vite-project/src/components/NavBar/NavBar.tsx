@@ -13,7 +13,6 @@ function NavBar() {
 
 	useEffect(() => {
 		const handleClickOutside = (event: MouseEvent) => {
-			// Si le menu est ouvert et qu'on clique à l'extérieur du menu et de l'icône
 			if (
 				isOpen &&
 				menuRef.current &&
@@ -109,37 +108,6 @@ function NavBar() {
 				</NavLink>
 			</div>
 		</div>
-		// <nav className={styles.navbar}>
-		// 	<h1 className={styles.title}>Cocktail</h1>
-
-		// 	<div className={styles.iconContainer}>
-		// 		<MartiniIcon />
-		// 	</div>
-
-		// 	<div className={styles.menuIcon} onClick={toggleMenu} ref={menuIconRef}>
-		// 		<span className={`${styles.bar} ${isOpen ? styles.open : ""}`} />
-		// 		<span className={`${styles.bar} ${isOpen ? styles.open : ""}`} />
-		// 		<span className={`${styles.bar} ${isOpen ? styles.open : ""}`} />
-		// 	</div>
-
-		// 	<div
-		// 		className={`${styles.menu} ${isOpen ? styles.openMenu : ""}`}
-		// 		ref={menuRef}
-		// 	>
-		// 		<NavLink to="/" onClick={() => setIsOpen(false)}>
-		// 			Accueil
-		// 		</NavLink>
-		// 		<NavLink to="/about" onClick={() => setIsOpen(false)}>
-		// 			À propos
-		// 		</NavLink>
-		// 		<NavLink to="/account" onClick={() => setIsOpen(false)}>
-		// 			Inscription
-		// 		</NavLink>
-		// 		<NavLink to="/cocktails" onClick={() => setIsOpen(false)}>
-		// 			Explorer les cocktails
-		// 		</NavLink>
-		// 	</div>
-		// </nav>
 	);
 }
 
