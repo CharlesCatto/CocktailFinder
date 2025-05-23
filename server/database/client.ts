@@ -1,23 +1,19 @@
 import mysql from "mysql2/promise";
 import dotenv from "dotenv";
-import path from "node:path"; // <-- Correction ici
+import path from "node:path";
 
-// Charge le .env depuis la racine du projet (Card-App/.env)
 dotenv.config({ path: path.resolve(__dirname, "../../.env") });
 
-const createClient = async () => {
-	return await mysql.createConnection({
-		host: process.env.DB_HOST,
-		port: Number(process.env.DB_PORT) || 3306, // Conversion explicite en nombre
-		user: process.env.DB_USER,
-		password: process.env.DB_PASSWORD,
-		database: process.env.DB_NAME,
-	});
-};
-console.log("Tentative de connexion avec :", {
-	host: process.env.DB_HOST,
-	user: process.env.DB_USER,
-	database: process.env.DB_NAME,
+// Configuration type-safe du pool
+export const pool = mysql.createPool({
+	host: process.env.DB_HOST || "localhost",
+	port: Number(process.env.DB_PORT) || 3306,
+	user: process.env.DB_USER || "root",
+	password: process.env.DB_PASSWORD || "",
+	database: process.env.DB_NAME || "card_app",
+	waitForConnections: true,
+	connectionLimit: 10,
+	queueLimit: 0,
 });
 
-export default createClient;
+console.log("MySQL Pool configuré pour la base:", process.env.DB_NAME);

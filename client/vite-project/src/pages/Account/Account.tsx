@@ -1,4 +1,3 @@
-// client/vite-project/src/pages/Account/Account.tsx
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";

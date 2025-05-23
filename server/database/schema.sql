@@ -13,7 +13,7 @@ CREATE TABLE user (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(255) UNIQUE NOT NULL,
     email VARCHAR(255) UNIQUE NOT NULL,
-    password_hash VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
     firstname VARCHAR(255),
     lastname VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -51,3 +51,37 @@ CREATE TABLE favorite (
     FOREIGN KEY (user_id) REFERENCES user (id) ON DELETE CASCADE,
     FOREIGN KEY (cocktail_id) REFERENCES cocktail (id) ON DELETE CASCADE
 );
+
+INSERT INTO
+    user (
+        username,
+        email,
+        password,
+        firstname,
+        lastname,
+        is_admin
+    )
+VALUES (
+        'hank',
+        'hank@example.com',
+        'password1hank',
+        'Admin',
+        'User',
+        false
+    ),
+    (
+        'jdoe',
+        'jdoe@example.com',
+        'password2jdoe',
+        'John',
+        'Doe',
+        false
+    ),
+    (
+        'asmith',
+        'asmith@example.com',
+        'password3asmith',
+        'Alice',
+        'Smith',
+        false
+    );

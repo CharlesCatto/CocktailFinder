@@ -4,8 +4,15 @@ import router from "./router";
 
 const app = express();
 
+// Middlewares
 app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use("/api", router);
+
+// Routes
+app.use("/", router);
+
+// Port configuration
+const PORT = process.env.PORT || 3000;
 
 export default app;
