@@ -1,31 +1,16 @@
-// import React from "react";
-// import ReactDOM from "react-dom/client";
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
-// import App from "./App/App";
-// import Layout from "./Layout/Layout";
-// import About from "./pages/About/About";
-
-// ReactDOM.createRoot(document.getElementById("root")!).render(
-// 	<React.StrictMode>
-// 		<BrowserRouter>
-// 			<Routes>
-// 				<Route path="/" element={<Layout />}>
-// 					<Route index element={<App />} />
-// 					<Route path="about" element={<About />} />
-// 				</Route>
-// 			</Routes>
-// 		</BrowserRouter>
-// 	</React.StrictMode>,
-// );
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { AuthProvider } from "./contexts/AuthContext";
 
 import Layout from "./Layout/Layout";
-// import App from "./App/App";
 import About from "./pages/About/About";
 import Home from "./pages/Home/Home";
-// Tu pourras ajouter d'autres pages ici, comme Contact, Blog, etc.
+import Finder from "./pages/Finder/Finder";
+import Account from "./pages/Account/Account";
+import { CocktailProvider } from "./contexts/CocktailContext"; // <-- importer le provider ici
 
 const router = createBrowserRouter([
 	{
@@ -34,14 +19,19 @@ const router = createBrowserRouter([
 		children: [
 			{ index: true, element: <Home /> },
 			{ path: "about", element: <About /> },
-
-			// ajoute ici d'autres routes : contact, articles/:id, etc.
+			{ path: "cocktails", element: <Finder /> },
+			{ path: "account", element: <Account /> },
 		],
 	},
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<CocktailProvider>
+			<AuthProvider>
+				<ToastContainer position="top-right" autoClose={3000} theme="colored" />
+				<RouterProvider router={router} />
+			</AuthProvider>
+		</CocktailProvider>
 	</React.StrictMode>,
 );

@@ -1,0 +1,32 @@
+.container {
+	margin: 0 auto;
+	max-width: 600px;
+}
+
+.searchBox {
+	display: flex;
+	gap: 10px;
+}
+
+.input {
+	flex-grow: 1;
+	padding: 10px;
+	background: #111;
+	border: 1px solid var(--neon-blue);
+	color: white;
+	border-radius: 5px;
+}
+
+.button {
+	background: var(--neon-blue);
+	color: black;
+	border: none;
+	padding: 10px 20px;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.button:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}

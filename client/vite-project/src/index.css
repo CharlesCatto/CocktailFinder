@@ -1,43 +1,100 @@
-/* Définir les variables de couleurs */
-:root {
-	--primary-color: #ff6f61; /* Couleur principale */
-	--secondary-color: #4caf50; /* Couleur secondaire */
-	--background-color: #f4f4f9; /* Fond clair */
-	--card-bg-color: #ffffff; /* Fond des cartes */
-	--card-border-color: #ccc; /* Bordure des cartes */
-	--text-color: #333333; /* Texte principal */
-	--text-light: #666666; /* Texte secondaire */
-	--button-bg: #ff9800; /* Boutons */
-	--button-text: #ffffff; /* Texte des boutons */
+@font-face {
+	font-family: "RageItalic";
+	src: url("/src/assets/font/RAGE_1.TTF") format("truetype");
+	font-display: swap;
 }
 
-/* Quelques styles globaux */
+/* === Variables couleurs néon années 80 === */
+:root {
+	--neon-pink: #ff00c8;
+	--neon-blue: #00eaff;
+	--neon-purple: #a633ff;
+	--neon-green: #39ff14;
+
+	--bg-dark: #000000;
+	--text-color: #f0f0f0;
+	--text-light: #aaaaaa;
+
+	--card-bg-color: #111111;
+	--card-border-color: #333333;
+
+	--button-bg: var(--neon-blue);
+	--button-text: #000000;
+
+	--highlight-color: var(--neon-pink);
+}
+
+/* === Styles globaux === */
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
-	font-family: "Arial", sans-serif;
+	font-family: "Orbitron", "Arial", sans-serif;
 }
 
 body {
-	background-color: var(--background-color);
+	background-color: var(--bg-dark);
 	color: var(--text-color);
+	line-height: 1.6;
 }
 
-/* Exemple de couleur sur les cartes */
-.card {
-	background-color: var(--card-bg-color);
-	border: 1px solid var(--card-border-color);
-	border-radius: 8px;
-	padding: 20px;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+/* === Liens === */
+a {
+	color: var(--neon-blue);
+	text-decoration: none;
 }
 
+a:hover {
+	color: var(--neon-pink);
+}
+
+/* === Titres === */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	color: var(--highlight-color);
+	margin-bottom: 1rem;
+}
+
+/* === Boutons === */
 button {
 	background-color: var(--button-bg);
 	color: var(--button-text);
-	padding: 10px 20px;
+	padding: 0.75rem 1.5rem;
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
+	font-weight: bold;
+	box-shadow: 0 0 10px var(--button-bg), 0 0 20px var(--button-bg);
+	transition: transform 0.2s ease;
+}
+
+button:hover {
+	transform: scale(1.05);
+}
+
+/* === Cartes === */
+.card {
+	background-color: var(--card-bg-color);
+	border: 1px solid var(--card-border-color);
+	border-radius: 10px;
+	padding: 20px;
+	box-shadow: 0 0 10px var(--neon-purple);
+}
+
+/* === Scrollbar custom (optionnel) === */
+::-webkit-scrollbar {
+	width: 8px;
+}
+::-webkit-scrollbar-track {
+	background: var(--bg-dark);
+}
+::-webkit-scrollbar-thumb {
+	background: var(--neon-purple);
+}
+::-webkit-scrollbar-thumb:hover {
+	background: var(--neon-pink);
 }
