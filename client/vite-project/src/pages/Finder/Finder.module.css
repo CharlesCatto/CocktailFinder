@@ -1,7 +1,7 @@
 :root {
 	--text-primary: #f8f8f8;
 	--text-secondary: #e0e0e0;
-	--text-light: #5a5a5a;
+	--text-light: #b0b0b0;
 }
 
 .container {
@@ -161,12 +161,11 @@
 }
 
 .tag {
-	background-color: #623962;
+	background-color: var(--neon-purple);
 	color: white;
 	padding: 0.3rem 0.8rem;
 	border-radius: 20px;
 	font-size: 0.8rem;
-	text-shadow: 1px 1px 2px rgb(0, 0, 0);
 }
 
 .modalBody {

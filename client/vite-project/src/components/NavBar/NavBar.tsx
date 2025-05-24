@@ -68,9 +68,7 @@ function NavBar() {
 			</div>
 
 			<div className={styles.titleContainer}>
-				<a className={styles.homeTitle} href="/">
-					<h1 className={styles.title}>Cocktail</h1>
-				</a>
+				<h1 className={styles.title}>Cocktail</h1>
 			</div>
 
 			<div className={styles.menuIcon} onClick={toggleMenu} ref={menuIconRef}>
@@ -88,25 +86,25 @@ function NavBar() {
 					end
 					className={({ isActive }) => (isActive ? styles.active : "")}
 				>
-					Home
+					Accueil
 				</NavLink>
 				<NavLink
 					to="/about"
 					className={({ isActive }) => (isActive ? styles.active : "")}
 				>
-					About
+					À propos
 				</NavLink>
 				<NavLink
 					to="/account"
 					className={({ isActive }) => (isActive ? styles.active : "")}
 				>
-					Register or Login
+					Inscription
 				</NavLink>
 				<NavLink
 					to="/cocktails"
 					className={({ isActive }) => (isActive ? styles.active : "")}
 				>
-					Find your Cocktail
+					Explorer les cocktails
 				</NavLink>
 			</div>
 		</div>
