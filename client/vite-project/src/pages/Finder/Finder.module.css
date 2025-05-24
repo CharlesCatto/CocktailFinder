@@ -185,7 +185,7 @@
 }
 
 .section p {
-	color: var(--text-light);
+	color: var(--text-primary);
 	line-height: 1.6;
 }
 
@@ -270,4 +270,8 @@
 	content: "•";
 	color: var(--neon-pink);
 	margin-right: 0.5rem;
+}
+
+.instruct {
+	color: white;
 }
