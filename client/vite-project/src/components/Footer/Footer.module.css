@@ -52,6 +52,19 @@
 	font-size: 1.5rem;
 	color: var(--neon-pink);
 	text-shadow: 0 0 5px var(--neon-pink);
+	position: relative;
+}
+.logo::after {
+	content: "Cocktail";
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%);
+	color: white;
+	text-shadow: 0 0 15px white, 0 0 30px white, 0 0 50px white;
+	mix-blend-mode: screen;
+	pointer-events: none;
+	opacity: 0.6;
 }
 
 .slogan {
