@@ -1,12 +1,11 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { resolve } from "node:path"; // Correction avec le préfixe node:
 import svgr from "vite-plugin-svgr";
-import { resolve } from "node:path";
 
 export default defineConfig({
 	plugins: [react(), svgr()],
 	server: {
-		// Configuration pour éviter les CORS en développement
 		proxy: {
 			"/api": {
 				target: "http://localhost:3000",
@@ -27,4 +26,5 @@ export default defineConfig({
 			},
 		},
 	},
+	base: "/", // Important pour Vercel
 });
