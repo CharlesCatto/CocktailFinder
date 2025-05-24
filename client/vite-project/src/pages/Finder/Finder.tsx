@@ -16,10 +16,10 @@ function Finder() {
 		for (let i = 1; i <= 15; i++) {
 			const ingredient = cocktail[`strIngredient${i}` as keyof Cocktail];
 			const measure = cocktail[`strMeasure${i}` as keyof Cocktail];
-			if (ingredient) {
+			if (ingredient && ingredient.trim() !== "") {
 				ingredients.push({
 					ingredient,
-					measure: measure || "",
+					measure: measure?.trim() || "",
 				});
 			}
 		}
@@ -118,13 +118,25 @@ function Finder() {
 								<h3>Instructions</h3>
 								<p>
 									{selectedCocktail.strInstructions ||
-										"Pas d'instructions disponibles"}
+										"No instructions available"}
 								</p>
 							</div>
 
-							{selectedCocktail.strInstructionsFR && (
-								<div className={styles.section}></div>
-							)}
+							<div className={styles.section}>
+								<h3>Ingredients</h3>
+								<ul className={styles.ingredientsList}>
+									{getIngredients(selectedCocktail).map((item, index) => (
+										<li key={index} className={styles.ingredientItem}>
+											{item.measure && (
+												<span className={styles.measure}>{item.measure}</span>
+											)}
+											<span className={styles.ingredientName}>
+												{item.ingredient}
+											</span>
+										</li>
+									))}
+								</ul>
+							</div>
 						</div>
 					</div>
 				</div>

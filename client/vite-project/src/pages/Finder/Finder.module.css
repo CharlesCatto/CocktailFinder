@@ -232,3 +232,41 @@
 .modalContent .modalTitle h2 {
 	color: var(--neon-pink) !important;
 }
+
+.ingredientsList {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+	gap: 0.5rem;
+}
+
+.ingredientItem {
+	background-color: rgba(255, 255, 255, 0.1);
+	padding: 0.5rem;
+	border-radius: 4px;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.modalContent .ingredientsList .ingredientItem .measure {
+	color: var(--neon-pink);
+	font-weight: bold;
+	min-width: 60px;
+}
+.modalBody .ingredientItem:hover .measure {
+	color: var(--neon-pink);
+	text-shadow: 0 0 5px var(--neon-pink);
+}
+
+.ingredientName {
+	color: var(--text-primary);
+}
+
+.ingredientItem::before {
+	content: "•";
+	color: var(--neon-pink);
+	margin-right: 0.5rem;
+}
