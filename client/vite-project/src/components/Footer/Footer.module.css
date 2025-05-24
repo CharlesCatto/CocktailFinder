@@ -1,0 +1,150 @@
+@font-face {
+	font-family: "RageItalic";
+	src: url("../../assets/font/RAGE_1.TTF") format("truetype");
+	font-display: swap;
+}
+
+.footer {
+	background-color: #000;
+	border-top: 1px solid var(--neon-blue);
+	box-shadow: 0 0 15px var(--neon-purple);
+	padding: 1.5rem 0;
+	position: relative;
+}
+
+.footer::before {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	height: 2px;
+	background: linear-gradient(
+		90deg,
+		transparent,
+		var(--neon-pink),
+		var(--neon-blue),
+		var(--neon-purple),
+		transparent
+	);
+	animation: rainbowBorder 8s linear infinite;
+}
+
+.content {
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 0 2rem;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	align-items: center;
+	gap: 1.5rem;
+}
+
+.logoContainer {
+	display: flex;
+	flex-direction: column;
+	min-width: 150px;
+}
+
+.logo {
+	font-family: "RageItalic", cursive;
+	font-size: 1.5rem;
+	color: var(--neon-pink);
+	text-shadow: 0 0 5px var(--neon-pink);
+}
+
+.slogan {
+	color: var(--neon-blue);
+	font-size: 0.8rem;
+	text-shadow: 0 0 3px var(--neon-blue);
+}
+
+.nav {
+	display: flex;
+	gap: 1.5rem;
+}
+
+.link {
+	color: var(--text-primary);
+	text-decoration: none;
+	font-size: 0.9rem;
+	position: relative;
+	transition: all 0.3s ease;
+}
+
+.link:hover {
+	color: var(--neon-blue);
+}
+
+.link::after {
+	content: "";
+	position: absolute;
+	bottom: -2px;
+	left: 0;
+	width: 0;
+	height: 1px;
+	background: var(--neon-blue);
+	transition: width 0.3s ease;
+}
+
+.link:hover::after {
+	width: 100%;
+}
+
+.socials {
+	display: flex;
+	gap: 1.5rem;
+}
+
+.socialLink {
+	color: var(--text-primary);
+	text-decoration: none;
+	font-size: 0.9rem;
+	transition: all 0.3s ease;
+}
+
+.socialLink:hover {
+	color: var(--neon-pink);
+	text-shadow: 0 0 5px var(--neon-pink);
+}
+
+.copyright {
+	flex-basis: 100%;
+	text-align: center;
+	color: var(--text-primary);
+	font-size: 0.8rem;
+	margin-top: 1rem;
+	padding-top: 1rem;
+	border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Animations */
+@keyframes rainbowBorder {
+	0% {
+		background-position: -100% 0;
+	}
+	100% {
+		background-position: 100% 0;
+	}
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+	.content {
+		flex-direction: column;
+		text-align: center;
+		gap: 1rem;
+	}
+
+	.nav,
+	.socials {
+		flex-wrap: wrap;
+		justify-content: center;
+	}
+
+	.copyright {
+		margin-top: 0.5rem;
+		padding-top: 0.5rem;
+	}
+}
