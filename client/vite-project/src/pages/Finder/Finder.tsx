@@ -1,15 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useCocktailContext } from "../../contexts/CocktailContext";
 import CocktailSearch from "../../components/CocktailSearch/CocktailSearch";
 import styles from "./Finder.module.css";
 import type { Cocktail } from "../../types/cocktail";
 
 function Finder() {
+	const [emptyMessage, setEmptyMessage] = useState("");
 	const { cocktails } = useCocktailContext();
 	const [isLoading, setIsLoading] = useState(false);
 	const [selectedCocktail, setSelectedCocktail] = useState<Cocktail | null>(
 		null,
 	);
+
+	const funMessages = [
+		"Ready to shake things up? Start searching!",
+		"No drinks yet... type a name and stir the magic!",
+		"Search for your next favorite cocktail!",
+		"No cocktails yet... Mix it up with a search!",
+	];
 
 	const getIngredients = (cocktail: Cocktail) => {
 		const ingredients = [];
@@ -26,9 +34,14 @@ function Finder() {
 		return ingredients;
 	};
 
+	useEffect(() => {
+		const randomIndex = Math.floor(Math.random() * funMessages.length);
+		setEmptyMessage(funMessages[randomIndex]);
+	}, []);
+
 	return (
 		<div className={styles.container}>
-			<h1 className={styles.title}>Explorer les Cocktails</h1>
+			<h1 className={styles.title}>The World of Cocktails</h1>
 
 			<div className={styles.searchSection}>
 				<CocktailSearch setIsLoading={setIsLoading} />
@@ -61,9 +74,7 @@ function Finder() {
 						))}
 					</div>
 				) : (
-					<p className={styles.empty}>
-						Utilisez la recherche pour découvrir des cocktails
-					</p>
+					<p className={styles.empty}>{emptyMessage}</p>
 				)}
 			</div>
 
