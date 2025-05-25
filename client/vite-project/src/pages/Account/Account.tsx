@@ -62,7 +62,7 @@ export default function Account() {
 				successToast(`Bienvenue, ${userData.username} !`);
 				setTimeout(() => navigate("/"), 2000); // Redirection après connexion
 			} else {
-				// Gestion inscription
+				// Incription gestion
 				if (register.password !== register.confirmPassword) {
 					errorToast("Les mots de passe ne correspondent pas.");
 					setErrorMessage("Les mots de passe ne correspondent pas.");
