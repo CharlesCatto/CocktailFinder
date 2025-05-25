@@ -13,14 +13,14 @@ export default function About() {
 				<h1 className={styles.title}>Cocktail Finder</h1>
 				<div className={styles.textBox}>
 					<p>
-						Bienvenue dans notre univers cocktail rétro-futuriste ! Trouvez la
-						recette parfaite en fonction de ce que vous avez dans votre bar.
+						Welcome to our retro-futuristic cocktail universe! Discover the
+						perfect recipe based on what’s chilling in your bar.
 					</p>
 					<p>
-						Inspiré par l'énergie des années 80, ce site vous transporte à Miami
-						Beach, où chaque cocktail raconte une histoire.
+						Fueled by the electric vibes of the '80s, this site whisks you away
+						to Miami Beach—where every cocktail has a story to tell.
 					</p>
-					<p className={styles.signature}>- L'équipe Cocktail Finder</p>
+					<p className={styles.signature}>– Cheers, and happy mixing!</p>
 				</div>
 			</div>
 		</div>

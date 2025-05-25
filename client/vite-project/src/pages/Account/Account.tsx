@@ -109,13 +109,13 @@ export default function Account() {
 				)}
 				{errorMessage && <div className={styles.error}>{errorMessage}</div>}
 
-				<h2>{isLogin ? "Connexion" : "Inscription"}</h2>
+				{/* <h2>{isLogin ? "Connexion" : "Inscription"}</h2> */}
 
 				<form onSubmit={handleSubmit}>
 					{!isLogin && (
 						<>
 							<div className={styles.inputGroup}>
-								<label htmlFor="firstname">Prénom</label>
+								<label htmlFor="firstname">Firstname</label>
 								<input
 									id="firstname"
 									type="text"
@@ -126,7 +126,7 @@ export default function Account() {
 								/>
 							</div>
 							<div className={styles.inputGroup}>
-								<label htmlFor="lastname">Nom</label>
+								<label htmlFor="lastname">Name</label>
 								<input
 									type="text"
 									name="lastname"
@@ -136,7 +136,7 @@ export default function Account() {
 								/>
 							</div>
 							<div className={styles.inputGroup}>
-								<label htmlFor="username">Pseudo</label>
+								<label htmlFor="username">Username</label>
 								<input
 									type="text"
 									name="username"
@@ -160,7 +160,7 @@ export default function Account() {
 					</div>
 
 					<div className={styles.inputGroup}>
-						<label htmlFor="password">Mot de passe</label>
+						<label htmlFor="password">Password</label>
 						<div className={styles.passwordContainer}>
 							<input
 								type={showPassword ? "text" : "password"}
@@ -184,7 +184,7 @@ export default function Account() {
 
 					{!isLogin && (
 						<div className={styles.inputGroup}>
-							<label htmlFor="confirmPassword">Confirmer le mot de passe</label>
+							<label htmlFor="confirmPassword">Confirm password</label>
 							<input
 								type={showPassword ? "text" : "password"}
 								name="confirmPassword"
@@ -197,18 +197,18 @@ export default function Account() {
 					)}
 
 					<button type="submit" className={styles.submitButton}>
-						{isLogin ? "Se connecter" : "S'inscrire"}
+						{isLogin ? "Connection" : "Register"}
 					</button>
 				</form>
 
 				<div className={styles.toggleText}>
-					{isLogin ? "Pas de compte ?" : "Déjà un compte ?"}{" "}
+					{isLogin ? "Not register yet?" : "Already register?"}{" "}
 					<button
 						type="button"
 						onClick={toggleForm}
 						className={styles.toggleButton}
 					>
-						{isLogin ? "Créer un compte" : "Se connecter"}
+						{isLogin ? "Create account" : "Connection"}
 					</button>
 				</div>
 			</div>
