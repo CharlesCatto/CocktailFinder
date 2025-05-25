@@ -17,7 +17,7 @@
 .navbar {
 	display: flex;
 	align-items: center;
-	justify-content: space-between; /* Changement important */
+	justify-content: space-between;
 	position: relative;
 	padding: 1rem 2rem;
 	background-color: #000;
@@ -43,9 +43,9 @@ a {
 .title {
 	font-family: "RageItalic", cursive;
 	font-size: 3rem;
-	color: var(--neon-pink);
-	text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 20px
-		var(--neon-pink), 0 0 40px var(--neon-purple);
+	color: white;
+	text-shadow: 0 0 2px #fff, 0 0 5px #ff4eea, 0 0 10px #ff4eea, 0 0 20px #ff4eea,
+		0 0 30px #b600a7, 0 0 40px #e430d5, 0 0 50px #b600a7;
 	animation: neonFlicker 3s infinite;
 	margin: 0;
 	position: relative;
@@ -58,10 +58,9 @@ a {
 	left: 50%;
 	transform: translateX(-50%);
 	color: white;
-	text-shadow: 0 0 5px white, 0 0 30px white, 0 0 50px white;
+	text-shadow: 0 0 2px white, 0 0 4px #fff, 0 0 8px #ff5bf2;
 	mix-blend-mode: screen;
-	pointer-events: none;
-	opacity: 0.6;
+	opacity: 0.15;
 }
 
 /* Neon Icon Styles */
@@ -99,11 +98,16 @@ a {
 .bar {
 	width: 25px;
 	height: 3px;
-	background-color: var(--neon-blue);
-	transition: all 0.3s ease;
+	background: radial-gradient(
+		ellipse at center,
+		#ffffff 0%,
+		var(--neon-blue) 40%,
+		var(--neon-blue) 100%
+	);
 	box-shadow: 0 0 5px var(--neon-blue), 0 0 10px var(--neon-blue), 0 0 20px
-		var(--neon-blue);
+		var(--neon-blue), 0 0 40px var(--neon-blue);
 	border-radius: 3px;
+	transition: all 0.3s ease;
 }
 
 /* Menu Styles */
@@ -203,29 +207,34 @@ a {
 	}
 }
 
-/* Animations */
-@keyframes flicker {
-	/* ... (conservez votre animation existante) ... */
-}
-
 @keyframes neonFlicker {
 	0%,
-	19%,
-	21%,
-	23%,
+	18%,
+	22%,
 	25%,
-	54%,
-	56%,
+	53%,
+	57%,
 	100% {
-		text-shadow: 0 0 5px var(--neon-pink), 0 0 10px var(--neon-pink), 0 0 20px
-			var(--neon-pink), 0 0 40px var(--neon-purple);
+		text-shadow: 0 0 2px #fff, 0 0 5px #ff4eea, 0 0 10px #ff4eea, 0 0 20px
+			#ff4eea, 0 0 30px #b600a7, 0 0 40px #b600a7, 0 0 50px #da40cd;
 		opacity: 1;
 	}
-	20%,
-	22%,
-	24%,
+
+	19%,
+	23%,
 	55% {
-		text-shadow: none;
-		opacity: 0.7;
+		text-shadow: 0 0 1px #fff, 0 0 3px #ff4eea;
+		opacity: 0.6;
 	}
+
+	20%,
+	24% {
+		text-shadow: none;
+		opacity: 0.3;
+	}
+}
+
+.homeTitle {
+	text-decoration: none;
+	color: inherit;
 }

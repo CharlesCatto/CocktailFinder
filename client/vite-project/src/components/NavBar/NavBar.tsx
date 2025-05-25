@@ -68,9 +68,9 @@ function NavBar() {
 			</div>
 
 			<div className={styles.titleContainer}>
-				<a className={styles.homeTitle} href="/">
+				<Link to="/" className={styles.homeTitle}>
 					<h1 className={styles.title}>Cocktail</h1>
-				</a>
+				</Link>
 			</div>
 
 			<div className={styles.menuIcon} onClick={toggleMenu} ref={menuIconRef}>
@@ -87,24 +87,28 @@ function NavBar() {
 					to="/"
 					end
 					className={({ isActive }) => (isActive ? styles.active : "")}
+					onClick={() => setIsOpen(false)}
 				>
 					Home
 				</NavLink>
 				<NavLink
 					to="/about"
 					className={({ isActive }) => (isActive ? styles.active : "")}
+					onClick={() => setIsOpen(false)}
 				>
 					About
 				</NavLink>
 				<NavLink
 					to="/account"
 					className={({ isActive }) => (isActive ? styles.active : "")}
+					onClick={() => setIsOpen(false)}
 				>
 					Register or Login
 				</NavLink>
 				<NavLink
 					to="/cocktails"
 					className={({ isActive }) => (isActive ? styles.active : "")}
+					onClick={() => setIsOpen(false)}
 				>
 					Find your Cocktail
 				</NavLink>
