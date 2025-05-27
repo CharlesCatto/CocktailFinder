@@ -10,6 +10,7 @@ import About from "./pages/About/About";
 import Home from "./pages/Home/Home";
 import Finder from "./pages/Finder/Finder";
 import Account from "./pages/Account/Account";
+import NotFound from "./pages/404/NotFound";
 import { CocktailProvider } from "./contexts/CocktailContext"; // <-- importer le provider ici
 
 const router = createBrowserRouter([
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
 			{ path: "about", element: <About /> },
 			{ path: "cocktails", element: <Finder /> },
 			{ path: "account", element: <Account /> },
+			{ path: "*", element: <NotFound /> },
 		],
 	},
 ]);
