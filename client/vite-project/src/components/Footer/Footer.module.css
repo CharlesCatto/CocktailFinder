@@ -53,13 +53,17 @@
 	color: var(--neon-pink);
 	text-shadow: 0 0 5px var(--neon-pink);
 	position: relative;
+	display: inline-block;
+	white-space: nowrap;
+	margin: 0 auto;
 }
 .logo::after {
 	content: "Cocktail";
 	position: absolute;
 	top: 0;
-	left: 50%;
-	transform: translateX(-50%);
+	left: 0;
+	right: 0;
+	text-align: center;
 	color: white;
 	text-shadow: 0 0 15px white, 0 0 30px white, 0 0 50px white;
 	mix-blend-mode: screen;

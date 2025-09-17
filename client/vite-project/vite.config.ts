@@ -1,6 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
-import { resolve } from "node:path"; // Correction avec le préfixe node:
+import { resolve } from "node:path";
 import svgr from "vite-plugin-svgr";
 
 export default defineConfig({

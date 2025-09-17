@@ -1,4 +1,3 @@
-/* Supprime cette redondance si elle entre en conflit */
 .navbar {
 	display: flex;
 	gap: 1rem;
@@ -8,5 +7,15 @@
 .header {
 	background-color: #000;
 	color: white;
-	padding: 0; /* le padding est géré dans NavBar */
+	padding: 0;
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.main {
+	flex: 1;
 }
